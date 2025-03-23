@@ -1,0 +1,30 @@
+package me.dominiksnothere999.oopmate.utils;
+
+import java.awt.*;
+
+public class Util {
+    public static final Color BLACK = new Color(20, 20, 20);
+    public static final Color WHITE = new Color(255, 255, 255);
+    public static final Color DARK = new Color(50, 70, 120);
+    public static final Color LIGHT = new Color(220, 220, 220);
+
+    public static Font setFont(String type) {
+        if (type.equals("STANDARD")) {
+            return new Font("SF Pro Display", Font.BOLD, 16);
+        } else if (type.equals("SMALL")) {
+            return new Font("SF Pro Display", Font.BOLD, 14);
+        } else if (type.equals("MONO")) {
+            return new Font("Monospaced", Font.BOLD, 14);
+        } else {
+            return new Font("Arial", Font.BOLD, 16);
+        }
+    }
+
+    public static Dimension setDimension(int width, int height) {
+        return new Dimension(width, height);
+    }
+
+    public static GridLayout setGridLayout(int rows, int cols, int hgap, int vgap) {
+        return new GridLayout(rows, cols, hgap, vgap);
+    }
+}
