@@ -1,6 +1,6 @@
 package me.dominiksnothere999.oopmate.controller;
 
-public class AIGameController {
+public class AIGameController extends GameController {
     private final Difficulty difficulty;
 
     public AIGameController(Difficulty difficulty) {
