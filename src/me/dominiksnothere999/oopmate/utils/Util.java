@@ -13,7 +13,7 @@ public class Util {
     // Define the square size.
     public static final int SQUARE_SIZE = 60;
 
-    // Define the font.
+    // Set the font.
     public static Font setFont(String type) {
         if (type.equals("STANDARD")) {
             return new Font("SF Pro Display", Font.BOLD, 16);
@@ -26,12 +26,12 @@ public class Util {
         }
     }
 
-    // Define the dimension.
+    // Set the dimension.
     public static Dimension setDimension(int width, int height) {
         return new Dimension(width, height);
     }
 
-    // Define the grid layout.
+    // Set the grid layout.
     public static GridLayout setGridLayout(int rows, int cols, int hgap, int vgap) {
         return new GridLayout(rows, cols, hgap, vgap);
     }
