@@ -2,8 +2,9 @@ package me.dominiksnothere999.oopmate.board;
 
 import me.dominiksnothere999.oopmate.pieces.Piece;
 
-// Used for the board of the game to represent a square.
+// This is the Square class, which is used to represent a square on the board.
 public class Square {
+    // The piece on the square.
     private Piece piece;
 
     // Constructor for the Square class.

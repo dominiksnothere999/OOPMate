@@ -5,7 +5,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 
-// Utility class for the game.
+// This is the Util class, which is used to store utility methods and constants.
 public class Util {
     // Define the colors.
     public static final Color BLACK = new Color(20, 20, 20);
