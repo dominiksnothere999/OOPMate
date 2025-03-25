@@ -10,8 +10,9 @@ public class Util {
     public static final Color DARK = new Color(50, 70, 120);
     public static final Color LIGHT = new Color(220, 220, 220);
 
-    // Define the square size.
+    // Define the board sizes.
     public static final int SQUARE_SIZE = 60;
+    public static final int BOARD_SIZE = 8;
 
     // Set the font.
     public static Font setFont(String type) {
