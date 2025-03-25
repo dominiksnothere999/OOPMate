@@ -11,7 +11,7 @@ import java.awt.GridBagLayout;
 import java.awt.Graphics;
 import java.awt.Color;
 
-// Used for the main menu panel of the game.
+// This is the MenuPanel class, which is used to represent the main menu.
 public class MenuPanel extends JFrame {
     // Constructor for the MenuPanel class.
     public MenuPanel() {
