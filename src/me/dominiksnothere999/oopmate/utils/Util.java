@@ -1,6 +1,9 @@
 package me.dominiksnothere999.oopmate.utils;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
 
 // Utility class for the game.
 public class Util {

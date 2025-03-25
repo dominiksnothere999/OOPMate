@@ -1,7 +1,7 @@
 package me.dominiksnothere999.oopmate;
 
 import me.dominiksnothere999.oopmate.gui.MenuPanel;
-import javax.swing.*;
+import javax.swing.SwingUtilities;
 
 // Main class for the program.
 public class Main {
