@@ -38,7 +38,7 @@ public class MenuPanel extends JFrame {
         setLocationRelativeTo(null);
     }
 
-    // Selects the difficulty for the AI.
+    // Select the difficulty for the AI.
     private void selectDifficulty() {
         // Create a dialog box to select the difficulty.
         String[] options = {"Easy", "Medium", "Hard"};
@@ -64,7 +64,7 @@ public class MenuPanel extends JFrame {
         new AIGameController(difficulty).startGame();
     }
 
-    // Creates a button for the GUI.
+    // Create a button for the GUI.
     private JButton createButton() {
         // Define and style the button.
         JButton button = new JButton("Play vs AI");
@@ -91,7 +91,7 @@ public class MenuPanel extends JFrame {
         return button;
     }
 
-    // Returns the main panel for the GUI.
+    // Create the main panel for the GUI.
     public static JPanel getMainPanel() {
         // Override the paintComponent method to draw the board.
         JPanel panel = new JPanel() {
