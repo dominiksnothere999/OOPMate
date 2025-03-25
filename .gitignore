@@ -1,0 +1,31 @@
+# IDE files
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.iml
+*.iws
+*.ipr
+.classpath
+.project
+.settings/
+
+# Compiled files
+bin/
+out/
+target/
+*.class
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# Logs
+*.log
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+build/
