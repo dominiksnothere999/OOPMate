@@ -24,6 +24,7 @@ public class Board {
         }
     }
 
+    // Setup the initial position of the pieces on the board.
     public void setupInitialPosition() {
         squares[7][0].setPiece(new Rook(PieceColor.WHITE, 7, 0));
         squares[7][1].setPiece(new Knight(Piece.PieceColor.WHITE, 7, 1));
