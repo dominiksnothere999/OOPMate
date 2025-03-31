@@ -8,6 +8,7 @@ import java.awt.BorderLayout;
 public class ChessPanel extends JFrame {
     // Define additional panels.
     private final StatusPanel statusPanel;
+    private final MoveHistoryPanel moveHistoryPanel;
 
     // Constructor for the ChessPanel class.
     public ChessPanel(GameController gameController) {
@@ -19,10 +20,12 @@ public class ChessPanel extends JFrame {
         // Objects for the panels panel.
         BoardPanel boardPanel = new BoardPanel(gameController.getBoard(), gameController);
         this.statusPanel = new StatusPanel();
+        this.moveHistoryPanel = new MoveHistoryPanel();
 
         // Pack the GUI together.
         add(boardPanel, BorderLayout.CENTER);
         add(statusPanel, BorderLayout.SOUTH);
+        add(moveHistoryPanel, BorderLayout.EAST);
         setLocationRelativeTo(null);
         pack();
         setResizable(false);
