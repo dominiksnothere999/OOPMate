@@ -24,10 +24,10 @@ public class Board {
         }
     }
 
-    // Setup the initial position of the pieces on the board.
+    // Setup the initial position of all the pieces on the board.
     public void setupInitialPosition() {
         squares[7][0].setPiece(new Rook(PieceColor.WHITE, 7, 0));
-        squares[7][1].setPiece(new Knight(Piece.PieceColor.WHITE, 7, 1));
+        squares[7][1].setPiece(new Knight(PieceColor.WHITE, 7, 1));
         squares[7][2].setPiece(new Bishop(PieceColor.WHITE, 7, 2));
         squares[7][3].setPiece(new Queen(PieceColor.WHITE, 7, 3));
         squares[7][4].setPiece(new King(PieceColor.WHITE, 7, 4));
