@@ -6,6 +6,9 @@ import java.awt.BorderLayout;
 
 // This is the ChessPanel class, which is used to represent the game board.
 public class ChessPanel extends JFrame {
+    // Define additional panels.
+    private final StatusPanel statusPanel;
+
     // Constructor for the ChessPanel class.
     public ChessPanel(GameController gameController) {
         // Set the title, default close operation, layout, and add the board panel.
@@ -13,11 +16,13 @@ public class ChessPanel extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        // Object for the board panel.
+        // Objects for the panels panel.
         BoardPanel boardPanel = new BoardPanel(gameController.getBoard(), gameController);
-        
+        this.statusPanel = new StatusPanel();
+
         // Pack the GUI together.
         add(boardPanel, BorderLayout.CENTER);
+        add(statusPanel, BorderLayout.SOUTH);
         setLocationRelativeTo(null);
         pack();
         setResizable(false);
