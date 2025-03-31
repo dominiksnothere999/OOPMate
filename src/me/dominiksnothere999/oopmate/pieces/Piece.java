@@ -16,6 +16,12 @@ public class Piece {
         this.col = col;
     }
 
+    // move() - Moves the piece to the specified row and column.
+
+    // isValidMove() - Checks if the move is valid for the piece.
+
+    // isClearPath() - Checks if the path is clear for the piece to move.
+
     // Colors of the piece.
     public enum PieceColor {
         WHITE,
@@ -31,4 +37,14 @@ public class Piece {
         QUEEN,
         KING
     }
+
+    // getColor() - Returns the color of the piece.
+
+    // getType() - Returns the type of the piece.
+
+    // getRow() - Returns the row of the piece.
+
+    // getCol() - Returns the column of the piece.
+
+    // setPosition() - Sets the position of the piece to the specified row and column.
 }

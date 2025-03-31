@@ -33,5 +33,32 @@ public class BoardPanel extends JPanel {
             }
         }
     }
+
+    // drawBoard() - Draws the game board on the panel.
     
+    // drawPieces() - Draws the pieces on the board.
+
+    // drawPiece() - Draws a single piece on the board.
+
+    // drawDraggedPiece() - Draws the piece being dragged by the user.
+
+    // loadPieceImages() - Loads the images for the pieces.
+
+    // setupMouseListeners() - Sets up mouse listeners for the board interactions.
+
+    // showPawnPromotionDialog() - Displays a dialog for pawn promotion options.
+
+    // isPawnPromotion() - Checks if a pawn is eligible for promotion.
+
+    // canMovePiece() - Determines if a piece can be moved to a specified square.
+    
+    // makeMove() - Executes the move of a piece on the board.
+
+    // isValidMoveSquare() - Checks if the square is a valid move for the selected piece.
+    
+    // highlightSelectedAndValidMoves() - Highlights the selected piece and its valid moves.
+
+    // calculateValidMoves() - Calculates the valid moves for the selected piece.
+
+    // getString() - Returns a string representation of the board state.
 }

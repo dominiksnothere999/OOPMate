@@ -20,5 +20,6 @@ public class StatusPanel extends JPanel{
         setBackground(Util.LIGHT);
         statusLabel.setForeground(Util.BLACK);
     }
-    
+ 
+    // updateStatus() - Updates the status label with the given text.
 }

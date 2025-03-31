@@ -6,4 +6,10 @@ public class Pawn extends Piece {
     public Pawn(PieceColor color, int row, int col) {
         super(color, PieceType.PAWN, row, col);
     }
+
+    // move() - Overrides the move() method in the Piece class.
+
+    // isValidMove() - Overrides the isValidMove() method in the Piece class.
+
+    //setJustMadeDoubleMove() - Sets the justMadeDoubleMove variable to true.
 }

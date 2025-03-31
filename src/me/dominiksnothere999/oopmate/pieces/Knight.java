@@ -6,4 +6,6 @@ public class Knight extends Piece {
     public Knight(PieceColor color, int row, int col) {
         super(color, PieceType.KNIGHT, row, col);
     }
+
+    // isValidMove() - Overrides the isValidMove() method in the Piece class.
 }

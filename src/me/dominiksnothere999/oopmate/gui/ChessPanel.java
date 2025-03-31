@@ -31,4 +31,8 @@ public class ChessPanel extends JFrame {
         setResizable(false);
         setVisible(true);
     }
+
+    // updateStatus() - Updates the status label with the given text.
+
+    // getMoveHistory() - Returns the move history from the MoveHistoryPanel.
 }

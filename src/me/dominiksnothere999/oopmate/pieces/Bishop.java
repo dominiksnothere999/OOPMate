@@ -6,4 +6,6 @@ public class Bishop extends Piece {
     public Bishop(PieceColor color, int row, int col) {
         super(color, PieceType.BISHOP, row, col);
     }
+
+    // isValidMove() - Override the isValidMove method from the Piece class.
 }

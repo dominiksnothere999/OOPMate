@@ -6,4 +6,6 @@ public class Queen  extends Piece {
     public Queen(PieceColor color, int row, int col) {
         super(color, PieceType.QUEEN, row, col);
     }
+
+    // isValidMove() - Overrides the isValidMove() method in the Piece class.
 }
