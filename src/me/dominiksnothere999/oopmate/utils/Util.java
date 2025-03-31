@@ -12,6 +12,7 @@ public class Util {
     public static final Color WHITE = new Color(255, 255, 255);
     public static final Color DARK = new Color(50, 70, 120);
     public static final Color LIGHT = new Color(220, 220, 220);
+    public static final Color TEXTAREA = new Color(235, 235, 235);
 
     // Define the board sizes.
     public static final int SQUARE_SIZE = 60;
