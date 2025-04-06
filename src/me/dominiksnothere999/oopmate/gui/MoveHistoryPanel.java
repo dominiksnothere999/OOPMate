@@ -1,15 +1,15 @@
 package me.dominiksnothere999.oopmate.gui;
 
 import me.dominiksnothere999.oopmate.utils.Util;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.text.DefaultCaret;
+import javax.swing.SwingConstants;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Insets;
 
@@ -17,6 +17,7 @@ import java.awt.Insets;
 public class MoveHistoryPanel extends JPanel{
     // The text area that displays the move history.
     private final JTextArea moveHistoryTextArea;
+    private int moveCount = 1;
 
     // Constructor for the MoveHistoryPanel class.
     public MoveHistoryPanel() {

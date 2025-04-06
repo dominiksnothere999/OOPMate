@@ -38,22 +38,22 @@ public class Piece {
         KING
     }
 
-    // getColor() - Returns the color of the piece.
+    // Get the color of the piece.
     public PieceColor getColor() {
         return color;
     }
 
-    // getType() - Returns the type of the piece.
+    // Get the type of the piece.
     public PieceType getType() {
         return type;
     }
 
-    // getRow() - Returns the row of the piece.
+    // Get the row of the piece.
     public int getRow() {
         return row;
     }
 
-    // getCol() - Returns the column of the piece.
+    // Get the column of the piece.
     public int getCol() {
         return col;
     }

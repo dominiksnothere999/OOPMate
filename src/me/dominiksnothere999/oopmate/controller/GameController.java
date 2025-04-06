@@ -1,12 +1,28 @@
 package me.dominiksnothere999.oopmate.controller;
 
-import me.dominiksnothere999.oopmate.board.Board;
-import me.dominiksnothere999.oopmate.gui.ChessPanel;
 import me.dominiksnothere999.oopmate.pieces.Piece.PieceColor;
+import me.dominiksnothere999.oopmate.pieces.Piece.PieceType;
+import me.dominiksnothere999.oopmate.gui.ChessPanel;
+import me.dominiksnothere999.oopmate.pieces.Piece;
+import me.dominiksnothere999.oopmate.board.Board;
+import java.util.Stack;
 
 // This is the GameController class, which is used to control the game.
 public class GameController {
-    // The board and view.
+    // The move record class, which is used to record the moves made in the game.
+    private record MoveRecord(
+        Piece piece,
+        int fromRow,
+        int fromCol,
+        int toRow,
+        int toCol,
+        Piece capturedPiece,
+        boolean wasPromotion,
+        PieceType originalType
+    ) {}
+    private final Stack<MoveRecord> moveHistory = new Stack<>();
+
+    // The board and view associated with the game.
     private final Board board;
     private final ChessPanel view;
     protected boolean gameInProgress;
@@ -25,11 +41,15 @@ public class GameController {
     public void startGame() {
         this.gameInProgress = true;
         view.setVisible(true);
+        updateBoardStatus();
     }
 
     // showAIDifficultyDialog() - Shows the AI difficulty dialog.
 
     // updateBoardStatus() - Updates the status of the board.
+    protected void updateBoardStatus() {
+
+    }
 
     // showGameEndDialog() - Displays the dialog at the end of the game.
 

@@ -12,12 +12,12 @@ public class Square {
         this.piece = null;
     }
 
-    // Returns the piece on the square.
+    // Return the piece on the square.
     public Piece getPiece() {
         return piece;
     }
 
-    // Sets the piece on the square.
+    // Set the piece on the square.
     public void setPiece(Piece piece) {
         this.piece = piece;
     }
