@@ -1,5 +1,9 @@
 package me.dominiksnothere999.oopmate.pieces;
 
+import me.dominiksnothere999.oopmate.board.Board;
+import me.dominiksnothere999.oopmate.pieces.Piece.PieceColor;
+import me.dominiksnothere999.oopmate.pieces.Piece.PieceType;
+
 // This is the Piece class, which is used to represent a piece on the board.
 public class Piece {
     // The properties of the piece.
@@ -16,11 +20,47 @@ public class Piece {
         this.col = col;
     }
 
-    // move() - Moves the piece to the specified row and column.
+    // Perform the move on the board.
+    public void move(Board board, int targetRow, int targetCol){
+        board.getSquare(row, col).setPiece(null);
+        this.row = targetRow;
+        this.col = targetCol;
+        board.getSquare(targetRow, targetCol).setPiece(this);
+    }
 
-    // isValidMove() - Checks if the move is valid for the piece.
+    // Check if the move is valid.
+    public boolean isValidMove(Board board, int toRow, int toCol) {
+        return row != toRow || col != toCol;
+    }
 
-    // isClearPath() - Checks if the path is clear for the piece to move.
+    // isPathClear() - Checks if the path is clear for the piece to move.
+    protected boolean isPathClear(Board board, int targetRow, int targetCol) {
+        // Check if the target square is within the bounds of the board.
+        int rowDirection = Integer.compare(targetRow, row)
+        int colDirection = Integer.compare(targetCol, col);
+
+        // Check if the target square is in the same row, column, or diagonal.
+        int currentRow = row + rowDirection;
+        int currentCol = col + colDirection;
+
+        // Check if the path is clear.
+        while (currentRow != targetRow || currentcol != targetCol) {
+            // Check if the current square is within the bounds of the board.
+            if (board.getSquare(currentRow, currentCol).getPiece() != null) {
+                return false;
+            }
+
+            // Move to the next square in the direction of the target square.
+            currentRow += rowDirection;
+            currentCol += colDirection;
+
+            // Check if the current square is within the bounds of the board.
+            if ((rowDirection != 0 && colDirection != 0) && (Math.abs(currentRow - targetRow) != Math.abs(currentCol - targetCol))) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     // Colors of the piece.
     public enum PieceColor {
@@ -58,5 +98,9 @@ public class Piece {
         return col;
     }
 
-    // setPosition() - Sets the position of the piece to the specified row and column.
+    // Set the position of the piece.
+    public void setPosition(int row, int col) {
+        this.row = row;
+        this.col = col;
+    }
 }
