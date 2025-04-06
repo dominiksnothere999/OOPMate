@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.Map;
 import java.net.URL;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 
 // This is the BoardPanel class, which is used to represent the game board.
 public class BoardPanel extends JPanel {
@@ -105,7 +108,7 @@ public class BoardPanel extends JPanel {
 
     // drawDraggedPiece() - Draws the piece being dragged by the user.
     private void drawDraggedPiece(Graphics g) {
-
+        
     }
 
     // loadPieceImages() - Loads the images for the pieces.
@@ -142,28 +145,131 @@ public class BoardPanel extends JPanel {
         }
     }
 
-    // setupMouseListeners() - Sets up mouse listeners for the board interactions.
+    // Setup mouse listeners for the board.
     private void setupMouseListeners() {
+        MouseAdapter mouseAdapter = new MouseAdapter() {
+            // Override the mousePressed method to handle piece selection and movement.
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (processingMove) return;
 
+                // Get the row and column of the clicked square.
+                int col = e.getX() / Util.SQUARE_SIZE;
+                int row = e.getY() / Util.SQUARE_SIZE;
+
+                // Check if the clicked square is within the board boundaries.
+                if (row < 0 || row >= 8 || col < 0 || col >= 8) {
+                    Piece clickedPiece = board.getSquare(row, col).getPiece();
+
+                    // Check if the clicked piece is not null and belongs to the current player.
+                    if (selectedPiece != null) {
+                        selectedPiece = null;
+                        validMoves.clear();
+                        repaint();
+                        return;
+                    }
+
+                    // Check if the move is valid and if the clicked piece is not null.
+                    if (isValidMoveSquare(row, col)) {
+                        makeMove(selectedPiece, selectedRow, selectedCol, row, col);
+                        selectedPiece = null;
+                        validMoves.clear();
+                        repaint();
+                        return;
+                    }
+
+                    // Set the selected piece.
+                    selectedPiece = null;
+                    validMoves.clear();
+
+                    // Check if the move is possible.
+                    boolean canMove = canMovePiece(clickedPiece);
+
+                    // Make a move and calculate valid moves.
+                    if (canMove) {
+                        selectedPiece = clickedPiece;
+                        selectedRow = row;
+                        selectedCol = col;
+                        calculateValidMoves(clickedPiece);
+                        draggedPiece = clickedPiece;
+                        dragSourceRow = row;
+                        dragSourceCol = col;
+                        draggedPieceX = e.getX();
+                        draggedPieceY = e.getY();
+                        repaint();
+                    }
+                }
+            }
+
+            // Override the mouseReleased method to handle piece dropping.
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (draggedPiece != null) {
+                    // Get the target row and column based on the mouse release position.
+                    int targetCol = e.getX() / Util.SQUARE_SIZE;
+                    int targetRow = e.getY() / Util.SQUARE_SIZE;
+
+                    // Check if the target square is within the board boundaries, then make the move.
+                    if (targetRow >= 0 && targetRow < 8 && targetCol >= 0 && targetCol < 8) {
+                        if (isValidMoveSquare(targetRow, targetCol)) {
+                            makeMove(draggedPiece, dragSourceRow, dragSourceCol, targetRow, targetCol);
+                            selectedPiece = null;
+                            validMoves.clear();
+                        }
+                    }
+
+                    // Reset the dragged piece and repaint the board.
+                    draggedPiece = null;
+                    repaint();
+                }
+            }
+        };
+
+        // Mouse motion listener to handle dragging of pieces.
+        MouseMotionAdapter mouseMotionAdapter = new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                // Check if a piece is being dragged.
+                if (draggedPiece != null) {
+                    draggedPieceX = e.getX();
+                    draggedPieceY = e.getY();
+                    repaint();
+                }
+            }
+        };
+
+        addMouseListener(mouseAdapter);  
+        addMouseMotionListener(mouseMotionAdapter);
     }
-
 
     // showPawnPromotionDialog() - Displays a dialog for pawn promotion options.
 
     // isPawnPromotion() - Checks if a pawn is eligible for promotion.
 
     // canMovePiece() - Determines if a piece can be moved to a specified square.
+    private boolean canMovePiece(Piece piece) {
+        return true; // FIX THIS LATER!!!!!!!!!!!!11!!
+    }
     
     // makeMove() - Executes the move of a piece on the board.
+    private void makeMove(Piece piece, int fromRow, int fromCol, int toRow, int toCol) {
+
+    }
 
     // isValidMoveSquare() - Checks if the square is a valid move for the selected piece.
-    
+    private boolean isValidMoveSquare(int row, int col) {
+        return true; // FIX THIS LATER!!!!!!!!!!!!!!11
+    }
+
     // highlightSelectedAndValidMoves() - Highlights the selected piece and its valid moves.
     private void highlightSelectedAndValidMoves(Graphics g) {
 
     }
 
     // calculateValidMoves() - Calculates the valid moves for the selected piece.
+    private void calculateValidMoves(Piece piece) {
+        
+    }
 
     // getString() - Returns a string representation of the board state.
 }
