@@ -39,12 +39,24 @@ public class Piece {
     }
 
     // getColor() - Returns the color of the piece.
+    public PieceColor getColor() {
+        return color;
+    }
 
     // getType() - Returns the type of the piece.
+    public PieceType getType() {
+        return type;
+    }
 
     // getRow() - Returns the row of the piece.
+    public int getRow() {
+        return row;
+    }
 
     // getCol() - Returns the column of the piece.
+    public int getCol() {
+        return col;
+    }
 
     // setPosition() - Sets the position of the piece to the specified row and column.
 }

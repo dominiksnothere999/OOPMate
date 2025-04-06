@@ -2,6 +2,7 @@ package me.dominiksnothere999.oopmate.controller;
 
 import me.dominiksnothere999.oopmate.board.Board;
 import me.dominiksnothere999.oopmate.gui.ChessPanel;
+import me.dominiksnothere999.oopmate.pieces.Piece.PieceColor;
 
 // This is the GameController class, which is used to control the game.
 public class GameController {
@@ -9,11 +10,15 @@ public class GameController {
     private final Board board;
     private final ChessPanel view;
     protected boolean gameInProgress;
+    protected PieceColor currentTurn;
 
     // Constructor for the GameController class.
     public GameController() {
         this.board = new Board();
+        this.board.setupInitialPosition();
+        this.currentTurn = PieceColor.WHITE;
         this.view = new ChessPanel(this);
+        this.gameInProgress = false;
     }
 
     // Start the game.
