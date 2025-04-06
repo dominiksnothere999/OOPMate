@@ -36,7 +36,7 @@ public class Piece {
     // isPathClear() - Checks if the path is clear for the piece to move.
     protected boolean isPathClear(Board board, int targetRow, int targetCol) {
         // Check if the target square is within the bounds of the board.
-        int rowDirection = Integer.compare(targetRow, row)
+        int rowDirection = Integer.compare(targetRow, row);
         int colDirection = Integer.compare(targetCol, col);
 
         // Check if the target square is in the same row, column, or diagonal.
@@ -44,7 +44,7 @@ public class Piece {
         int currentCol = col + colDirection;
 
         // Check if the path is clear.
-        while (currentRow != targetRow || currentcol != targetCol) {
+        while (currentRow != targetRow || currentCol != targetCol) {
             // Check if the current square is within the bounds of the board.
             if (board.getSquare(currentRow, currentCol).getPiece() != null) {
                 return false;
