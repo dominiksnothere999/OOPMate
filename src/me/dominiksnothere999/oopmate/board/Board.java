@@ -1,8 +1,8 @@
 package me.dominiksnothere999.oopmate.board;
 
-import me.dominiksnothere999.oopmate.pieces.*;
 import me.dominiksnothere999.oopmate.pieces.Piece.PieceColor;
 import me.dominiksnothere999.oopmate.utils.Util;
+import me.dominiksnothere999.oopmate.pieces.*;
 
 // This is the Board class, which is used to represent the game board.
 public class Board {

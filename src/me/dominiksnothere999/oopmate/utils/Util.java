@@ -1,9 +1,9 @@
 package me.dominiksnothere999.oopmate.utils;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Dimension;
+import java.awt.Color;
+import java.awt.Font;
 
 // This is the Util class, which is used to store utility methods and constants.
 public class Util {
