@@ -3,9 +3,12 @@ package me.dominiksnothere999.oopmate.controller;
 import static me.dominiksnothere999.oopmate.gui.BoardPanel.getString;
 import me.dominiksnothere999.oopmate.pieces.Piece.PieceColor;
 import me.dominiksnothere999.oopmate.pieces.Piece.PieceType;
+import me.dominiksnothere999.oopmate.pieces.Queen;
 import me.dominiksnothere999.oopmate.pieces.Rook;
 import me.dominiksnothere999.oopmate.gui.ChessPanel;
+import me.dominiksnothere999.oopmate.pieces.Bishop;
 import me.dominiksnothere999.oopmate.pieces.King;
+import me.dominiksnothere999.oopmate.pieces.Knight;
 import me.dominiksnothere999.oopmate.pieces.Pawn;
 import me.dominiksnothere999.oopmate.pieces.Piece;
 import me.dominiksnothere999.oopmate.board.Board;
@@ -175,9 +178,43 @@ public class GameController {
         switchTurn();
     }
 
-    // ##### | handlePieceMoveWithPromotion() - Handles the movement of a piece with promotion.
+    // Handle the movement of a piece with promotion.
+    public void handlePieceMoveWithPromotion(Piece pawn, int fromRow, int fromCol, int toRow, int toCol, PieceType promotionType) {
+        // Define captured piece and check if the move is a capture.
+        Piece capturedPiece = board.getPiece(toRow, toCol);
+        boolean isCapture = capturedPiece != null;
+        
+        // Add the move to the history.
+        moveHistory.push(new MoveRecord(pawn, fromRow, fromCol, toRow, toCol, capturedPiece, true, pawn.getType()));
+        
+        // Execute the move on the board.
+        pawn.move(board, toRow, toCol);
+        
+        // Create the promoted piece and place it on the board.
+        Piece promotedPiece = createPromotionPiece(promotionType, pawn.getColor(), toRow, toCol);
+        
+        // Replace the pawn with the promoted piece.
+        board.getSquare(toRow, toCol).setPiece(promotedPiece);
+        
+        // Create chess notation for the move and add it to move history.
+        String from = convertToChessNotation(fromRow, fromCol);
+        String to = convertToChessNotation(toRow, toCol);
+        String moveText = from + (isCapture ? "x" : "-") + to + "=" + getPieceNotation(promotionType);
+        view.getMoveHistoryPanel().addMove(moveText, pawn.getColor() == PieceColor.WHITE);
+        
+        // Switch the turn to the other player.
+        switchTurn();
+    }
 
-    // ##### | createPromotionPiece() - Creates a promotion piece for pawn promotion.
+    // Create a promotion piece for pawn promotion.
+    private Piece createPromotionPiece(PieceType type, PieceColor color, int row, int col) {
+        return switch(type) {
+            case ROOK -> new Rook(color, row, col);
+            case BISHOP -> new Bishop(color, row, col);
+            case KNIGHT -> new Knight(color, row, col);
+            default -> new Queen(color, row, col);
+        };
+    }
 
     // Check if the current player's king is in check.
     public boolean isInCheck(PieceColor kingColor) {

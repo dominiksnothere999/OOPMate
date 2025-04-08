@@ -9,6 +9,8 @@ import me.dominiksnothere999.oopmate.board.Board;
 import me.dominiksnothere999.oopmate.utils.Util;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -257,9 +259,19 @@ public class BoardPanel extends JPanel {
         addMouseMotionListener(mouseMotionAdapter);
     }
 
-    // ##### | showPawnPromotionDialog() - Displays a dialog for pawn promotion options.
+    // Display a dialog for pawn promotion options.
+    private PieceType showPawnPromotionDialog(PieceColor color) {
+        Frame parentFrame = (Frame) SwingUtilities.getWindowAncestor(this);
+        PawnPromotionDialog dialog = new PawnPromotionDialog(parentFrame, color);
+        dialog.setVisible(true);
+        return dialog.getSelectedPieceType();
+    }
 
-    // ##### | isPawnPromotion() - Checks if a pawn is eligible for promotion.
+    // Check if a pawn is eligible for promotion.
+    private boolean isPawnPromotion(Piece piece, int targetRow) {
+        if (piece == null || piece.getType() != PieceType.PAWN) return false;
+        return (piece.getColor() == PieceColor.WHITE && targetRow == 0) || (piece.getColor() == PieceColor.BLACK && targetRow == 7);
+    }
 
     // Check if the piece can be moved.
     private boolean canMovePiece(Piece piece) {
