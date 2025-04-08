@@ -3,25 +3,23 @@ package me.dominiksnothere999.oopmate.controller;
 import static me.dominiksnothere999.oopmate.gui.BoardPanel.getString;
 import me.dominiksnothere999.oopmate.pieces.Piece.PieceColor;
 import me.dominiksnothere999.oopmate.pieces.Piece.PieceType;
-import me.dominiksnothere999.oopmate.pieces.Queen;
-import me.dominiksnothere999.oopmate.pieces.Rook;
 import me.dominiksnothere999.oopmate.gui.ChessPanel;
 import me.dominiksnothere999.oopmate.pieces.Bishop;
-import me.dominiksnothere999.oopmate.pieces.King;
 import me.dominiksnothere999.oopmate.pieces.Knight;
-import me.dominiksnothere999.oopmate.pieces.Pawn;
 import me.dominiksnothere999.oopmate.pieces.Piece;
+import me.dominiksnothere999.oopmate.pieces.Queen;
+import me.dominiksnothere999.oopmate.pieces.Rook;
+import me.dominiksnothere999.oopmate.pieces.King;
+import me.dominiksnothere999.oopmate.pieces.Pawn;
 import me.dominiksnothere999.oopmate.board.Board;
 import me.dominiksnothere999.oopmate.utils.Util;
-
-import java.awt.*;
-import java.util.Stack;
-
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.SwingConstants;
+import javax.swing.JOptionPane;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import java.util.Stack;
+import java.awt.*;
 
 // This is the GameController class, which is used to control the game.
 public class GameController {

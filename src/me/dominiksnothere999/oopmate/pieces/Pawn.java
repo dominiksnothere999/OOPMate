@@ -1,8 +1,8 @@
 package me.dominiksnothere999.oopmate.pieces;
 
-import me.dominiksnothere999.oopmate.board.Board;
 import me.dominiksnothere999.oopmate.pieces.Piece.PieceColor;
 import me.dominiksnothere999.oopmate.pieces.Piece.PieceType;
+import me.dominiksnothere999.oopmate.board.Board;
 
 // This is the Pawn class. It extends the Piece class.
 public class Pawn extends Piece {

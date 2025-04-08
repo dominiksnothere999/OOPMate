@@ -1,8 +1,8 @@
 package me.dominiksnothere999.oopmate.pieces;
 
-import me.dominiksnothere999.oopmate.board.Board;
 import me.dominiksnothere999.oopmate.pieces.Piece.PieceColor;
 import me.dominiksnothere999.oopmate.pieces.Piece.PieceType;
+import me.dominiksnothere999.oopmate.board.Board;
 
 // This is the Piece class, which is used to represent a piece on the board.
 public class Piece {

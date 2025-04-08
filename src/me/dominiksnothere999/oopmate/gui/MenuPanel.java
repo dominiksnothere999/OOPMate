@@ -2,11 +2,11 @@ package me.dominiksnothere999.oopmate.gui;
 
 import me.dominiksnothere999.oopmate.controller.AIGameController;
 import me.dominiksnothere999.oopmate.utils.Util;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JButton;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JFrame;
 import java.awt.GridBagLayout;
 import java.awt.Graphics;
 import java.awt.Color;

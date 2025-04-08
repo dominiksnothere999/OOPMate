@@ -1,14 +1,16 @@
 package me.dominiksnothere999.oopmate.gui;
 
+import me.dominiksnothere999.oopmate.pieces.Piece.PieceColor;
+import me.dominiksnothere999.oopmate.pieces.Piece.PieceType;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
+import java.net.URL;
+import java.awt.*;
 
-import me.dominiksnothere999.oopmate.pieces.Piece.PieceColor;
-import me.dominiksnothere999.oopmate.pieces.Piece.PieceType;
-
-public class PawnPromotionPanel {
+public class PawnPromotionPanel extends JDialog{
     // The default piece type for promotion.
     private PieceType selectedPieceType = PieceType.QUEEN;
 

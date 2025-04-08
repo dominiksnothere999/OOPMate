@@ -3,23 +3,22 @@ package me.dominiksnothere999.oopmate.gui;
 import me.dominiksnothere999.oopmate.controller.GameController;
 import me.dominiksnothere999.oopmate.pieces.Piece.PieceColor;
 import me.dominiksnothere999.oopmate.pieces.Piece.PieceType;
-import me.dominiksnothere999.oopmate.pieces.King;
 import me.dominiksnothere999.oopmate.pieces.Piece;
+import me.dominiksnothere999.oopmate.pieces.King;
 import me.dominiksnothere999.oopmate.board.Board;
 import me.dominiksnothere999.oopmate.utils.Util;
+import javax.swing.SwingUtilities;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.net.URL;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 
 // This is the BoardPanel class, which is used to represent the game board.
 public class BoardPanel extends JPanel {
@@ -260,9 +259,9 @@ public class BoardPanel extends JPanel {
     }
 
     // Display a dialog for pawn promotion options.
-    private PieceType showPawnPromotionDialog(PieceColor color) {
+    private PieceType showPawnPromotionPanel(PieceColor color) {
         Frame parentFrame = (Frame) SwingUtilities.getWindowAncestor(this);
-        PawnPromotionDialog dialog = new PawnPromotionDialog(parentFrame, color);
+        PawnPromotionPanel dialog = new PawnPromotionPanel(parentFrame, color);
         dialog.setVisible(true);
         return dialog.getSelectedPieceType();
     }
