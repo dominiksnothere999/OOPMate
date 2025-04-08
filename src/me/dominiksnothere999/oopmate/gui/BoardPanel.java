@@ -2,6 +2,8 @@ package me.dominiksnothere999.oopmate.gui;
 
 import me.dominiksnothere999.oopmate.controller.GameController;
 import me.dominiksnothere999.oopmate.pieces.Piece.PieceColor;
+import me.dominiksnothere999.oopmate.pieces.Piece.PieceType;
+import me.dominiksnothere999.oopmate.pieces.King;
 import me.dominiksnothere999.oopmate.pieces.Piece;
 import me.dominiksnothere999.oopmate.board.Board;
 import me.dominiksnothere999.oopmate.utils.Util;
@@ -106,12 +108,32 @@ public class BoardPanel extends JPanel {
         }
     }
 
-    // drawDraggedPiece() - Draws the piece being dragged by the user.
+    // Draw the piece being dragged by the user.
     private void drawDraggedPiece(Graphics g) {
+        // Determine the image to draw based on the dragged piece's color and type.
+        String color = draggedPiece.getColor() == PieceColor.WHITE ? "white" : "black";
+        String pieceName = draggedPiece.getType().toString().toLowerCase();
+        String key = color + "_" + pieceName;
+        Image img = pieceImages.get(key);
         
+        // Draw the image at the current mouse position.
+        if (img != null) {
+            // Calculate the position to draw the image based on the mouse coordinates.
+            int x = draggedPieceX - Util.SQUARE_SIZE / 2;
+            int y = draggedPieceY - Util.SQUARE_SIZE / 2;
+            
+            // Set the transparency for the dragged piece.
+            Graphics2D g2d = (Graphics2D) g;
+            Composite originalComposite = g2d.getComposite();
+            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));
+            
+            // Draw the image at the calculated position.
+            g2d.drawImage(img, x, y, Util.SQUARE_SIZE, Util.SQUARE_SIZE, this);
+            g2d.setComposite(originalComposite);
+        }
     }
 
-    // loadPieceImages() - Loads the images for the pieces.
+    // Load the images for the pieces.
     private void loadPieceImages() {
         String[] pieces = {"pawn", "rook", "knight", "bishop", "queen", "king"};
         String[] colors = {"white", "black"};
@@ -158,34 +180,27 @@ public class BoardPanel extends JPanel {
                 int row = e.getY() / Util.SQUARE_SIZE;
 
                 // Check if the clicked square is within the board boundaries.
-                if (row < 0 || row >= 8 || col < 0 || col >= 8) {
+                if (row >= 0 && row < 8 && col >= 0 && col < 8) {
                     Piece clickedPiece = board.getSquare(row, col).getPiece();
 
-                    // Check if the clicked piece is not null and belongs to the current player.
+                    // Check if a piece is already selected and we're clicking elsewhere.
                     if (selectedPiece != null) {
+                        // Check if we can move to this square.
+                        if (isValidMoveSquare(row, col)) {
+                            makeMove(selectedPiece, selectedRow, selectedCol, row, col);
+                            selectedPiece = null;
+                            validMoves.clear();
+                            repaint();
+                            return;
+                        }
+                        // If not valid move, deselect current piece.
                         selectedPiece = null;
                         validMoves.clear();
                         repaint();
-                        return;
                     }
 
-                    // Check if the move is valid and if the clicked piece is not null.
-                    if (isValidMoveSquare(row, col)) {
-                        makeMove(selectedPiece, selectedRow, selectedCol, row, col);
-                        selectedPiece = null;
-                        validMoves.clear();
-                        repaint();
-                        return;
-                    }
-
-                    // Set the selected piece.
-                    selectedPiece = null;
-                    validMoves.clear();
-
-                    // Check if the move is possible.
+                    // Check if we can move the clicked piece and select it.
                     boolean canMove = canMovePiece(clickedPiece);
-
-                    // Make a move and calculate valid moves.
                     if (canMove) {
                         selectedPiece = clickedPiece;
                         selectedRow = row;
@@ -246,30 +261,146 @@ public class BoardPanel extends JPanel {
 
     // isPawnPromotion() - Checks if a pawn is eligible for promotion.
 
-    // canMovePiece() - Determines if a piece can be moved to a specified square.
+    // Check if the piece can be moved.
     private boolean canMovePiece(Piece piece) {
-        return true; // FIX THIS LATER!!!!!!!!!!!!11!!
+        if (piece == null) {
+            return false;
+        }
+        return piece.getColor() == gameController.getCurrentTurn();
     }
     
-    // makeMove() - Executes the move of a piece on the board.
+    // Execute the move of a piece on the board.
     private void makeMove(Piece piece, int fromRow, int fromCol, int toRow, int toCol) {
+        // Set a flag to indicate that a move is being processed.
+        processingMove = true;
 
+        // Handle the move using the game controller.
+        try {
+            gameController.handlePieceMove(piece, fromRow, fromCol, toRow, toCol);
+            repaint();
+        } catch (Exception e) {
+            System.err.println("[ERROR] Error processing move: " + e.getMessage());
+        } finally {
+            processingMove = false;
+        }
     }
 
-    // isValidMoveSquare() - Checks if the square is a valid move for the selected piece.
+    // Check if the move is valid for the selected piece.
     private boolean isValidMoveSquare(int row, int col) {
-        return true; // FIX THIS LATER!!!!!!!!!!!!!!11
+        // Check if the selected piece exists.
+        if (selectedPiece == null) {
+            return false;
+        }
+
+        // Check if the target square is within the valid moves.
+        if (!selectedPiece.isValidMove(board, row, col)) {
+            return false;
+        }
+
+        return gameController.isValidMove(selectedPiece, row, col);
     }
 
-    // highlightSelectedAndValidMoves() - Highlights the selected piece and its valid moves.
+    // Highlight the selected piece and its valid moves.
     private void highlightSelectedAndValidMoves(Graphics g) {
-
-    }
-
-    // calculateValidMoves() - Calculates the valid moves for the selected piece.
-    private void calculateValidMoves(Piece piece) {
+        // Set the color for highlighting.
+        if (draggedPiece != null) {
+            g.setColor(new Color(180, 180, 40, 100));
+            g.fillRect(dragSourceCol * Util.SQUARE_SIZE, dragSourceRow * Util.SQUARE_SIZE, Util.SQUARE_SIZE, Util.SQUARE_SIZE);
+        }
         
+        // Highlight the selected piece.
+        if (selectedPiece != null && draggedPiece == null) {
+            g.setColor(new Color(100, 150, 200, 180));
+            g.fillRect(selectedCol * Util.SQUARE_SIZE, selectedRow * Util.SQUARE_SIZE, Util.SQUARE_SIZE, Util.SQUARE_SIZE);
+        }
+        
+        // Highlight the valid moves.
+        for (Point move : validMoves) {
+            // Get the row and column of the valid move.
+            int col = (int) move.getX();
+            int row = (int) move.getY();
+            
+            // Check if the square is occupied by a piece.
+            boolean isCapture = board.getPiece(row, col) != null;
+            
+            // Define the composite for the graphics context.
+            Graphics2D g2d = (Graphics2D) g;
+            Composite originalComposite = g2d.getComposite();
+            
+            // Set the color and transparency based on whether it's a capture or not.
+            if (isCapture) {
+                g2d.setColor(new Color(70, 90, 140, 180));
+                g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));
+                int ringSize = Util.SQUARE_SIZE - 10;
+                int offset = (Util.SQUARE_SIZE - ringSize) / 2;
+                int strokeWidth = 4;
+                
+                g2d.setStroke(new BasicStroke(strokeWidth));
+                g2d.drawOval(
+                    col * Util.SQUARE_SIZE + offset,
+                    row * Util.SQUARE_SIZE + offset,
+                    ringSize, 
+                    ringSize
+                );
+            } else {
+                g2d.setColor(new Color(70, 90, 140, 150));
+                g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.6f));
+                int dotSize = Util.SQUARE_SIZE / 4;
+                int dotOffset = (Util.SQUARE_SIZE - dotSize) / 2;
+                
+                g2d.fillOval(
+                    col * Util.SQUARE_SIZE + dotOffset,
+                    row * Util.SQUARE_SIZE + dotOffset,
+                    dotSize, 
+                    dotSize
+                );
+            }
+            
+            // Reset the composite to the original state.
+            g2d.setComposite(originalComposite);
+        }
     }
 
-    // getString() - Returns a string representation of the board state.
+    // Calculate the valid moves for the selected piece.
+    private void calculateValidMoves(Piece piece) {
+        validMoves.clear();
+        if (piece == null) return;
+        
+        // Check if the piece is a King and has not moved yet.
+        if (piece instanceof King king && !king.getHasMoved()) {
+            int kingRow = king.getRow();
+            
+            if (king.isValidMove(board, kingRow, king.getCol() + 2)) {
+                // Check if the king can castle to the right.
+                validMoves.add(new Point(king.getCol() + 2, kingRow));
+            }
+            
+            if (king.isValidMove(board, kingRow, king.getCol() - 2)) {
+                // Check if the king can castle to the left.
+                validMoves.add(new Point(king.getCol() - 2, kingRow));
+            }
+        }
+        
+        // Check all squares on the board for valid moves.
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                if (piece.isValidMove(board, row, col) &&
+                        gameController.isValidMove(piece, row, col)) {
+                    validMoves.add(new Point(col, row));
+                }
+            }
+        }
+    }
+
+    // Get the string representation of the piece type.
+    public static String getString(PieceType type) {
+        return switch (type) {
+            case PAWN -> "";
+            case KNIGHT -> "N";
+            case BISHOP -> "B";
+            case ROOK -> "R";
+            case QUEEN -> "Q";
+            case KING -> "K";
+        };
+    }
 }

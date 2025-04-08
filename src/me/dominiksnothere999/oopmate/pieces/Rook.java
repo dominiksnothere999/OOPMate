@@ -14,7 +14,13 @@ public class Rook extends Piece {
 
     // isValidMove() - Override the isValidMove method from the Piece class.
 
-    // getHasMoved() - Returns true if the rook has moved, false otherwise.
+    // Get the hasMoved variable.
+    public boolean getHasMoved() {
+        return hasMoved;
+    }
 
-    // setHasMoved() - Sets the hasMoved variable to true if the rook has moved, false otherwise.
+    // Set the hasMoved variable.
+    public void setHasMoved(boolean hasMoved) {
+        this.hasMoved = hasMoved;
+    }
 }

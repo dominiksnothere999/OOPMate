@@ -20,7 +20,13 @@ public class King extends Piece {
 
     // isSquareUnderAttack() - Checks if the square is under attack by any opponent pieces.
 
-    // getHasMoved() - Returns the hasMoved variable.
+    // Get the hasMoved variable.
+    public boolean getHasMoved() {
+        return hasMoved;
+    }
 
-    // setHasMoved() - Sets the hasMoved variable to true if the king has moved, false otherwise.
+    // Set the hasMoved variable.
+    public void setHasMoved(boolean hasMoved) {
+        this.hasMoved = hasMoved;
+    }
 }

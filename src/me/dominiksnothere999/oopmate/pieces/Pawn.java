@@ -1,5 +1,8 @@
 package me.dominiksnothere999.oopmate.pieces;
 
+import me.dominiksnothere999.oopmate.pieces.Piece.PieceColor;
+import me.dominiksnothere999.oopmate.pieces.Piece.PieceType;
+
 // This is the Pawn class. It extends the Piece class.
 public class Pawn extends Piece {
     // This variable indicates whether the pawn has moved.
@@ -15,5 +18,8 @@ public class Pawn extends Piece {
 
     // isValidMove() - Overrides the isValidMove() method in the Piece class.
 
-    //setJustMadeDoubleMove() - Sets the justMadeDoubleMove variable to true.
+    // Set the justMadeDoubleMove variable.
+        public void setJustMadeDoubleMove(boolean value) {
+        justMadeDoubleMove = value;
+    }
 }

@@ -1,10 +1,13 @@
 package me.dominiksnothere999.oopmate.controller;
 
+import static me.dominiksnothere999.oopmate.gui.BoardPanel.getString;
 import me.dominiksnothere999.oopmate.pieces.Piece.PieceColor;
 import me.dominiksnothere999.oopmate.pieces.Piece.PieceType;
 import me.dominiksnothere999.oopmate.gui.ChessPanel;
+import me.dominiksnothere999.oopmate.pieces.Pawn;
 import me.dominiksnothere999.oopmate.pieces.Piece;
 import me.dominiksnothere999.oopmate.board.Board;
+import me.dominiksnothere999.oopmate.utils.Util;
 import java.util.Stack;
 
 // This is the GameController class, which is used to control the game.
@@ -53,15 +56,48 @@ public class GameController {
 
     // showGameEndDialog() - Displays the dialog at the end of the game.
 
-    // switchTurn() - Switches the turn between players.
+    // Switch the turn between players.
+    public void switchTurn() {
+        currentTurn = (currentTurn == PieceColor.WHITE) ? PieceColor.BLACK : PieceColor.WHITE;
+        updateBoardStatus();
+        endTurn();
+    }
 
-    // endTurn() - Ends the current player's turn.
+    // End the current player's turn.
+    public void endTurn() {
+        // Get the previous turn's color.
+        PieceColor previousTurn = (currentTurn == PieceColor.WHITE) ? PieceColor.BLACK : PieceColor.WHITE;
+        
+        // Reset the justMadeDoubleMove flag for all pawns of the previous turn.
+        for (int row = 0; row < Util.BOARD_SIZE; row++) {
+            for (int col = 0; col < Util.BOARD_SIZE; col++) {
+                Piece piece = board.getSquare(row, col).getPiece();
+                if (piece instanceof Pawn && piece.getColor() == previousTurn) {
+                    ((Pawn) piece).setJustMadeDoubleMove(false);
+                }
+            }
+        }        
+    }
 
     // hasNoLegalMoves() - Checks if there are no legal moves available.
 
     // recordMove() - Records a move made by a player.
+    public void recordMove(Piece piece, int fromRow, int fromCol, int toRow, int toCol, boolean isCapture) {
 
-    // handlePieceMove() - Handles the movement of a piece.
+    }
+
+    // Handle the movement of a piece.
+    public void handlePieceMove(Piece piece, int fromRow, int fromCol, int toRow, int toCol) {
+        // Define captured piece and check if the move is a capture.
+        Piece capturedPiece = board.getPiece(toRow, toCol);
+        boolean isCapture = capturedPiece != null;
+
+        // Add the move to the history and execute the move.
+        moveHistory.push(new MoveRecord(piece, fromRow, fromCol, toRow, toCol, capturedPiece, false, piece.getType()));
+        piece.move(board, toRow, toCol);
+        recordMove(piece, fromRow, fromCol, toRow, toCol, isCapture);
+        switchTurn();
+    }
 
     // handlePieceMoveWithPromotion() - Handles the movement of a piece with promotion.
 
@@ -72,6 +108,9 @@ public class GameController {
     // isInCheckmate() - Checks if the current player's king is in checkmate.
 
     // isMoveValid() - Checks if a move is valid based on the game rules.
+    public boolean isValidMove(Piece piece, int targetRow, int targetCol) {
+        return true; // FIX LATER!
+    }
 
     // convertToChessNotation() - Converts a move to standard chess notation.
 
@@ -84,11 +123,23 @@ public class GameController {
         return board;
     }
 
-    // getView() - Returns the view associated with the game controller.
+    // Get the view.
+    public ChessPanel getView() {
+        return view;
+    }
 
-    // getCurrentTurn() - Returns the current player's turn.
+    // Get the current player's turn.
+    public PieceColor getCurrentTurn() {
+        return currentTurn;
+    }
 
-    // getCurrentTurnNext() - Returns the next player's turn.
+    // Get the next player's turn.
+    public String getCurrentTurnText() {
+        return currentTurn == PieceColor.WHITE ? "White's turn" : "Black's turn";
+    }
     
-    // getPieceNotation() - Returns the notation for the specified piece.
+    // Get the piece notation for a given piece type.
+    public String getPieceNotation(PieceType type) {
+        return getString(type);
+    }
 }

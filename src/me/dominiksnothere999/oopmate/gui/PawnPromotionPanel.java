@@ -10,5 +10,8 @@ public class PawnPromotionPanel {
 
     // createPromotionButton() - Creates a button for the promotion.
 
-    // getSelectedPieceType() - Returns the selected piece type.
+    // Get the selected piece type.
+    public PieceType getSelectedPieceType() {
+        return selectedPieceType;
+    }
 }

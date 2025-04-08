@@ -22,4 +22,7 @@ public class StatusPanel extends JPanel{
     }
  
     // updateStatus() - Updates the status label with the given text.
+    public void updateStatus(String message) {
+        
+    }
 }
