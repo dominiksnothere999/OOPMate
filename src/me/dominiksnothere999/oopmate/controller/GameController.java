@@ -514,7 +514,7 @@ public class GameController {
     }
 
     // Convert a move to standard chess notation.
-    private String convertToChessNotation(int row, int col) {
+    String convertToChessNotation(int row, int col) {
         char file = (char) ('a' + col);
         int rank = 8 - row;
         return "" + file + rank;
