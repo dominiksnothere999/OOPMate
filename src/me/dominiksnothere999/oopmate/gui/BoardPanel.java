@@ -257,9 +257,9 @@ public class BoardPanel extends JPanel {
         addMouseMotionListener(mouseMotionAdapter);
     }
 
-    // showPawnPromotionDialog() - Displays a dialog for pawn promotion options.
+    // ##### | showPawnPromotionDialog() - Displays a dialog for pawn promotion options.
 
-    // isPawnPromotion() - Checks if a pawn is eligible for promotion.
+    // ##### | isPawnPromotion() - Checks if a pawn is eligible for promotion.
 
     // Check if the piece can be moved.
     private boolean canMovePiece(Piece piece) {

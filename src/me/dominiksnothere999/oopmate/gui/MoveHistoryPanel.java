@@ -62,5 +62,30 @@ public class MoveHistoryPanel extends JPanel{
         add(scrollPane, BorderLayout.CENTER);
     }
 
-    // addMove() - Adds a move to the move history text area.
+    // Add a move to the move history text area.
+    public void addMove(String move, boolean isWhiteMove) {
+        StringBuilder sb = new StringBuilder();
+        
+        // Get the current text to check if we need to start a new line.
+        String currentText = moveHistoryTextArea.getText();
+        boolean needsNewLine = !currentText.isEmpty() && !currentText.endsWith("\n");
+        
+        // Start a new line if needed and this is a white move.
+        if (needsNewLine && isWhiteMove) {
+            sb.append("\n");
+        }
+
+        if (isWhiteMove) {
+            // Format with padding for move number.
+            sb.append(String.format("%3d. %-7s", moveCount, move));
+        } else {
+            sb.append(String.format("   %-7s\n", move));
+            // If it's a black move, we don't need to increment the move count here.
+            moveCount++;
+        }
+
+        // Make sure the most recent moves are visible.
+        moveHistoryTextArea.append(sb.toString());
+        moveHistoryTextArea.setCaretPosition(moveHistoryTextArea.getDocument().getLength());
+    }
 }

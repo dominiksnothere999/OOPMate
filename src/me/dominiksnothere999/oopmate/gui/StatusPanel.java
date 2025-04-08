@@ -21,8 +21,20 @@ public class StatusPanel extends JPanel{
         statusLabel.setForeground(Util.BLACK);
     }
  
-    // updateStatus() - Updates the status label with the given text.
+    // Update the status label with the given text.
     public void updateStatus(String message) {
+        statusLabel.setText(message);
         
+        // Determine which player's turn it is by looking at the message.
+        boolean isBlackTurn = message.toLowerCase().startsWith("black");
+        
+        // Set appropriate colors based on the turn.
+        if (isBlackTurn) {
+            setBackground(Util.DARK);
+            statusLabel.setForeground(Util.LIGHT);
+        } else {
+            setBackground(Util.LIGHT);
+            statusLabel.setForeground(Util.DARK);
+        }
     }
 }

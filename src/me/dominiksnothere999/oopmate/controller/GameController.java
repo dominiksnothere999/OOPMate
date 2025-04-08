@@ -49,14 +49,36 @@ public class GameController {
         updateBoardStatus();
     }
 
-    // showAIDifficultyDialog() - Shows the AI difficulty dialog.
+    // ##### | showAIDifficultyDialog() - Shows the AI difficulty dialog.
 
-    // updateBoardStatus() - Updates the status of the board.
+    // Update the status of the board.
     protected void updateBoardStatus() {
-
+        // Check if the game is in check, checkmate, or stalemate.
+        boolean inCheck = isInCheck(currentTurn);
+        boolean inCheckmate = inCheck && isCheckmate(currentTurn);
+        boolean inStalemate = !inCheck && hasNoLegalMoves(currentTurn);
+        
+        // Update the status text based on the game state.
+        String status = getCurrentTurnText();
+        if (inCheckmate) {
+            status += " - CHECKMATE!";
+            PieceColor winner = (currentTurn == PieceColor.WHITE) ? PieceColor.BLACK : PieceColor.WHITE;
+            showGameEndDialog(winner, true);
+        } else if (inStalemate) {
+            status += " - STALEMATE!";
+            showGameEndDialog(null, false);
+        } else if (inCheck) {
+            status += " - CHECK!";
+        }
+        
+        // Update the status text in the view.
+        view.updateStatus(status);
     }
 
-    // showGameEndDialog() - Displays the dialog at the end of the game.
+    // ##### | showGameEndDialog() - Displays the dialog at the end of the game.
+    private void showGameEndDialog(PieceColor winner, boolean isCheckmate) {
+        
+    }
 
     // Switch the turn between players.
     public void switchTurn() {
@@ -103,9 +125,41 @@ public class GameController {
         return true;
     }
 
-    // recordMove() - Records a move made by a player.
+    // Record a move made by a player.
     public void recordMove(Piece piece, int fromRow, int fromCol, int toRow, int toCol, boolean isCapture) {
+        if (!gameInProgress) return;
+        
+        // Define chess notation for the move.
+        String from = convertToChessNotation(fromRow, fromCol);
+        String to = convertToChessNotation(toRow, toCol);
+        String pieceNotation = getPieceNotation(piece.getType());
+        String moveText;
+        
+        // Handle special case: castling (kingside or queenside).
+        if (piece.getType() == PieceType.KING && Math.abs(toCol - fromCol) == 2) {
+            if (toCol > fromCol) {
+                moveText = "O-O";
+            } 
+            else {
+                moveText = "O-O-O";
+            }
+        }
 
+        // Handle special case: en passant capture.
+        else if (piece.getType() == PieceType.PAWN && 
+                Math.abs(fromCol - toCol) == 1 && 
+                isCapture && 
+                board.getPiece(toRow, toCol) == null) {
+            moveText = pieceNotation + from + "x" + to + " e.p.";
+        }
+
+        // Handle normal move or capture.
+        else {
+            moveText = pieceNotation + from + (isCapture ? "x" : "-") + to;
+        }
+        
+        // Add the move to the move history panel.
+        view.getMoveHistory().addMove(moveText, piece.getColor() == PieceColor.WHITE);
     }
 
     // Handle the movement of a piece.
@@ -121,9 +175,9 @@ public class GameController {
         switchTurn();
     }
 
-    // handlePieceMoveWithPromotion() - Handles the movement of a piece with promotion.
+    // ##### | handlePieceMoveWithPromotion() - Handles the movement of a piece with promotion.
 
-    // createPromotionPiece() - Creates a promotion piece for pawn promotion.
+    // ##### | createPromotionPiece() - Creates a promotion piece for pawn promotion.
 
     // Check if the current player's king is in check.
     public boolean isInCheck(PieceColor kingColor) {
@@ -366,7 +420,12 @@ public class GameController {
         return result;
     }
 
-    // convertToChessNotation() - Converts a move to standard chess notation.
+    // Convert a move to standard chess notation.
+    private String convertToChessNotation(int row, int col) {
+        char file = (char) ('a' + col);
+        int rank = 8 - row;
+        return "" + file + rank;
+    }
 
     // Find the current player's king on the board.
     private King findKing(PieceColor color) {
@@ -382,7 +441,7 @@ public class GameController {
         return null;
     }
 
-    // getJPanel() - Returns the JPanel associated with the game view.
+    // ##### | getJPanel() - Returns the JPanel associated with the game view.
 
     // Get the board.
     public Board getBoard() {

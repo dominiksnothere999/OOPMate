@@ -25,19 +25,19 @@ public class AIGameController extends GameController {
         this.difficulty = difficulty;
     }
 
-    // switchTurn() - Overrides the switchTurn() method in the GameController class.
+    // ##### | switchTurn() - Overrides the switchTurn() method in the GameController class.
 
-    // makeAIMove() - Makes a move for the AI based on the difficulty level.
+    // ##### | makeAIMove() - Makes a move for the AI based on the difficulty level.
 
-    // makeRandomMove() - Makes a random move for the AI.
+    // ##### | makeRandomMove() - Makes a random move for the AI.
 
-    // makeSmartRandomMove() - Makes a smart random move for the AI.
+    // ##### | makeSmartRandomMove() - Makes a smart random move for the AI.
 
-    // makeBestMove() - Makes the best move for the AI based on the difficulty level.
+    // ##### | makeBestMove() - Makes the best move for the AI based on the difficulty level.
 
-    // evaluateBoard() - Evaluates the board position for the AI.
+    // ##### | evaluateBoard() - Evaluates the board position for the AI.
 
-    // executeMove() - Executes a move on the board.
+    // ##### | executeMove() - Executes a move on the board.
     
     // Get the difficulty of the AI.
     public enum Difficulty {
@@ -46,7 +46,7 @@ public class AIGameController extends GameController {
         HARD
     }
 
-    // getAllValidMoves() - Returns a list of all valid moves for the AI.
+    // ##### | getAllValidMoves() - Returns a list of all valid moves for the AI.
 
-    // Move(...) - Moves a piece on the board.
+    // ##### | Move(...) - Moves a piece on the board.
 }
