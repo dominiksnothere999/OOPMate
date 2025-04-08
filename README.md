@@ -8,7 +8,7 @@ A fully-featured chess game implemented in Java using object-oriented programmin
 
 ## 🚧 Current Development Status
 
-This project is currently under active development.
+The development of this project has been completed. The game is fully functional and includes all standard chess rules and features. However, there may be minor bugs, which WILL NOT be fixed as this is a school project. The code is not optimized for performance, but it is organized and easy to understand. Use it how you like.
 
 ## ✨ Features
 
@@ -78,7 +78,3 @@ The AI opponent features three difficulty levels:
 -   **Easy**: Makes random valid moves
 -   **Medium**: Makes tactical moves with some evaluation
 -   **Hard**: Uses advanced board evaluation and deeper search (for real it's quite dumb)
-
-## 🤝 Contributing
-
-This is a school project, so there will be no updates after the final release!
