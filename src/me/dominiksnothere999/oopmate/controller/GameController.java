@@ -13,7 +13,15 @@ import me.dominiksnothere999.oopmate.pieces.Pawn;
 import me.dominiksnothere999.oopmate.pieces.Piece;
 import me.dominiksnothere999.oopmate.board.Board;
 import me.dominiksnothere999.oopmate.utils.Util;
+
+import java.awt.*;
 import java.util.Stack;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
 // This is the GameController class, which is used to control the game.
 public class GameController {
@@ -52,7 +60,34 @@ public class GameController {
         updateBoardStatus();
     }
 
-    // ##### | showAIDifficultyDialog() - Shows the AI difficulty dialog.
+    // Show the AI difficulty dialog.
+    private void showAIDifficultyDialog(Frame parent) {
+        // Show a dialog to select AI difficulty.
+        String[] options = {"Easy", "Medium", "Hard"};
+
+        // Show the dialog and get the user's choice.
+        int choice = JOptionPane.showOptionDialog(
+            parent,
+            "Select AI difficulty:",
+            "AI Difficulty",
+            JOptionPane.DEFAULT_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            options,
+            options[1]
+        );
+        
+        // Start the game with the selected difficulty.
+        AIGameController.Difficulty difficulty = switch (choice) {
+            case 0 -> AIGameController.Difficulty.EASY;
+            case 2 -> AIGameController.Difficulty.HARD;
+            default -> AIGameController.Difficulty.MEDIUM;
+        };
+        
+        view.setVisible(false);
+        view.dispose();
+        new AIGameController(difficulty).startGame();
+    }
 
     // Update the status of the board.
     protected void updateBoardStatus() {
@@ -78,9 +113,32 @@ public class GameController {
         view.updateStatus(status);
     }
 
-    // ##### | showGameEndDialog() - Displays the dialog at the end of the game.
+    // Display the dialog at the end of the game.
     private void showGameEndDialog(PieceColor winner, boolean isCheckmate) {
+        // Create a panel to display the game over message.
+        JPanel panel = getJPanel(winner, isCheckmate);
+        Object[] options = {"New Game"};
         
+        SwingUtilities.invokeLater(() -> {
+            int choice = JOptionPane.showOptionDialog(
+                view,
+                panel,
+                "Game Over",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                options,
+                options[0]
+            );
+            
+            // If the user chooses to start a new game, show the AI difficulty dialog.
+            if (choice == 0 || choice == JOptionPane.CLOSED_OPTION) {
+                Frame parentFrame = (Frame) SwingUtilities.getWindowAncestor(view);
+                showAIDifficultyDialog(parentFrame);
+            }
+        });
+        
+        gameInProgress = false;
     }
 
     // Switch the turn between players.
@@ -200,7 +258,7 @@ public class GameController {
         String from = convertToChessNotation(fromRow, fromCol);
         String to = convertToChessNotation(toRow, toCol);
         String moveText = from + (isCapture ? "x" : "-") + to + "=" + getPieceNotation(promotionType);
-        view.getMoveHistoryPanel().addMove(moveText, pawn.getColor() == PieceColor.WHITE);
+        view.getMoveHistory().addMove(moveText, pawn.getColor() == PieceColor.WHITE);
         
         // Switch the turn to the other player.
         switchTurn();
@@ -478,7 +536,25 @@ public class GameController {
         return null;
     }
 
-    // ##### | getJPanel() - Returns the JPanel associated with the game view.
+    // Display the JPanel associated with the game view.
+    private static JPanel getJPanel(PieceColor winner, boolean isCheckmate) {
+        String message;
+
+        // Determine the message based on the game state.
+        if (isCheckmate) {
+            String winnerText = winner == PieceColor.WHITE ? "White" : "Black";
+            message = "Checkmate! " + winnerText + " wins the game!";
+        } else {
+            message = "Stalemate! The game is a draw.";
+        }
+
+        // Create a JPanel to display the message.
+        JPanel panel = new JPanel(new BorderLayout(0, 10));
+        JLabel label = new JLabel(message, SwingConstants.CENTER);
+        label.setFont(new Font("Arial", Font.BOLD, 16));
+        panel.add(label, BorderLayout.CENTER);
+        return panel;
+    }
 
     // Get the board.
     public Board getBoard() {
