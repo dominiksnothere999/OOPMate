@@ -33,7 +33,7 @@ public class Piece {
         return row != toRow || col != toCol;
     }
 
-    // isPathClear() - Checks if the path is clear for the piece to move.
+    // Check if the path is clear for the piece to move.
     protected boolean isPathClear(Board board, int targetRow, int targetCol) {
         // Check if the target square is within the bounds of the board.
         int rowDirection = Integer.compare(targetRow, row);
