@@ -12,7 +12,7 @@ public class Rook extends Piece {
 
     // move() - Override the move method from the Piece class.
 
-    // isValidMove() - Override the isValidMove method from the Piece class.
+    // isMoveValid() - Override the isMoveValid method from the Piece class.
 
     // Get the hasMoved variable.
     public boolean getHasMoved() {

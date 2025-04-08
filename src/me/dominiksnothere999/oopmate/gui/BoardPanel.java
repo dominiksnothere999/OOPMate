@@ -186,7 +186,7 @@ public class BoardPanel extends JPanel {
                     // Check if a piece is already selected and we're clicking elsewhere.
                     if (selectedPiece != null) {
                         // Check if we can move to this square.
-                        if (isValidMoveSquare(row, col)) {
+                        if (isMoveValidSquare(row, col)) {
                             makeMove(selectedPiece, selectedRow, selectedCol, row, col);
                             selectedPiece = null;
                             validMoves.clear();
@@ -226,7 +226,7 @@ public class BoardPanel extends JPanel {
 
                     // Check if the target square is within the board boundaries, then make the move.
                     if (targetRow >= 0 && targetRow < 8 && targetCol >= 0 && targetCol < 8) {
-                        if (isValidMoveSquare(targetRow, targetCol)) {
+                        if (isMoveValidSquare(targetRow, targetCol)) {
                             makeMove(draggedPiece, dragSourceRow, dragSourceCol, targetRow, targetCol);
                             selectedPiece = null;
                             validMoves.clear();
@@ -286,18 +286,18 @@ public class BoardPanel extends JPanel {
     }
 
     // Check if the move is valid for the selected piece.
-    private boolean isValidMoveSquare(int row, int col) {
+    private boolean isMoveValidSquare(int row, int col) {
         // Check if the selected piece exists.
         if (selectedPiece == null) {
             return false;
         }
 
         // Check if the target square is within the valid moves.
-        if (!selectedPiece.isValidMove(board, row, col)) {
+        if (!selectedPiece.isMoveValid(board, row, col)) {
             return false;
         }
 
-        return gameController.isValidMove(selectedPiece, row, col);
+        return gameController.isMoveValid(selectedPiece, row, col);
     }
 
     // Highlight the selected piece and its valid moves.
@@ -370,12 +370,12 @@ public class BoardPanel extends JPanel {
         if (piece instanceof King king && !king.getHasMoved()) {
             int kingRow = king.getRow();
             
-            if (king.isValidMove(board, kingRow, king.getCol() + 2)) {
+            if (king.isMoveValid(board, kingRow, king.getCol() + 2)) {
                 // Check if the king can castle to the right.
                 validMoves.add(new Point(king.getCol() + 2, kingRow));
             }
             
-            if (king.isValidMove(board, kingRow, king.getCol() - 2)) {
+            if (king.isMoveValid(board, kingRow, king.getCol() - 2)) {
                 // Check if the king can castle to the left.
                 validMoves.add(new Point(king.getCol() - 2, kingRow));
             }
@@ -384,8 +384,8 @@ public class BoardPanel extends JPanel {
         // Check all squares on the board for valid moves.
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
-                if (piece.isValidMove(board, row, col) &&
-                        gameController.isValidMove(piece, row, col)) {
+                if (piece.isMoveValid(board, row, col) &&
+                        gameController.isMoveValid(piece, row, col)) {
                     validMoves.add(new Point(col, row));
                 }
             }

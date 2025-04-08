@@ -16,7 +16,7 @@ public class Pawn extends Piece {
 
     // move() - Overrides the move() method in the Piece class.
 
-    // isValidMove() - Overrides the isValidMove() method in the Piece class.
+    // isMoveValid() - Overrides the isMoveValid() method in the Piece class.
 
     // Set the justMadeDoubleMove variable.
         public void setJustMadeDoubleMove(boolean value) {

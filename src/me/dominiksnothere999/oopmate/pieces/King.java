@@ -12,7 +12,7 @@ public class King extends Piece {
 
     // move() - Overrides the move() method in the Piece class.
 
-    // isValidMove() - Overrides the isValidMove() method in the Piece class.
+    // isMoveValid() - Overrides the isMoveValid() method in the Piece class.
 
     // canCastleKingside() - Checks if the king can castle kingside.
 

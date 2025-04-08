@@ -29,7 +29,7 @@ public class Piece {
     }
 
     // Check if the move is valid.
-    public boolean isValidMove(Board board, int toRow, int toCol) {
+    public boolean isMoveValid(Board board, int toRow, int toCol) {
         return row != toRow || col != toCol;
     }
 
